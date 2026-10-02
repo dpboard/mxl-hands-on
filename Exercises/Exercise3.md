@@ -2,9 +2,9 @@
 
 ### Synopsis
 
-In Exercise 3, we will enhance our MXL environment by integrating a **VNC client with a lightweight Linux desktop container**. This setup provides a graphical interface that allows you to visualize actual video outputs from MXL writer applications in real-time. 
+In Exercise 3, we will enhance our MXL environment by integrating a **WebRTC client with a lightweight HTML interface**. This setup provides a graphical interface that allows you to visualize actual video outputs from MXL writer applications in real-time. 
 
-You'll learn how to **modify attributes of an MXL writer application** - specifically changing the overlay text on one of the video flows - and observe these changes immediately through the VNC viewer.
+You'll learn how to **modify attributes of an MXL writer application** - specifically changing the overlay text on one of the video flows - and observe these changes immediately through the WebRTC viewer.
 
 This exercise also showcases the gstreamer clip player plugin (added in [PR #22](https://github.com/dmf-mxl/mxl/pull/22)), which enables media transport stream files to be written directly into an MXL domain. Together, these components provide a tangible demonstration of MXL's capabilities through interactive video writer and reader test applications.
 
@@ -96,13 +96,50 @@ This exercise also showcases the gstreamer clip player plugin (added in [PR #22]
 
 1. Use the WebRTC player application to look at the newly created mxl flows. You can reach the webRTC player in your browser with the following information:
 
-| App | URL | API Swagger Page |
-|-----|-----|-----|
-| MXL to WebRTC | http://localhost:9601 | http://localhost:9601/docs |
+   | App | URL | API Swagger Page |
+   |-----|-----|-----|
+   | MXL to WebRTC | http://localhost:9601 | http://localhost:9601/docs |
 
-With what you learned so far, can you look at all mxl flows? 
+   With what you learned so far, can you look at all mxl flows? 
 
-When you are done experimenting, do not forget to shutdown your containers.
+1. Once you've finished experimenting, shut down your containers.
+   ```sh
+   docker compose down # For linux based system
+   ```
+   ```sh
+   ./stop-mac.sh # For mac based system
+   ```
+
+1. Look at the other docker-compose.yaml located in the /data folder and look for the difference in between the two. Pay attention to the '-t' parameter in the command executed by the first writer media function.
+   ```sh
+   cat ./data/docker-compose.yml # For linux based system
+   ```
+   ```sh
+   cat ./data/docker-compose.mac.yml # For mac based system
+   ```
+
+1. Replace the docker-compose.yaml with the new docker-compose.yaml from the /data folder.
+   ```sh
+   sudo cp ./data/docker-compose.yml .  # For linux based system
+   ```
+   ```sh
+   sudo cp ./data/docker-compose.mac.yml . # For mac based system
+   ```
+1. Start the containers
+
+   ```sh
+   docker compose up -d # For linux based system
+   ```
+   ```sh
+   ./start-mac.sh # For mac based system
+   ```
+1. Use the WebRTC player application again to inspect the modified test mxl flow. Notice how the text overlay has changed.
+
+   | App | URL | API Swagger Page |
+   |-----|-----|-----|
+   | MXL to WebRTC | http://localhost:9601 | http://localhost:9601/docs |
+
+1. When you are done experimenting, do not forget to shutdown your containers.
    ```sh
    docker compose down # For linux based system
    ```
